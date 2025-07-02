@@ -13,7 +13,7 @@ How it works:
 
 Supported file types:
   - JavaScript, TypeScript, JSX, TSX
-  - Python, Shell, Ruby, Go, Java, Kotlin, C, C++, C#, PHP
+  - Python, Shell, Ruby, Go, Java, Kotlin, C, C++, C#, PHP, Dart
   - CSS, SCSS, LESS
   - HTML, XML, Markdown
   - YAML (.yml, .yaml)

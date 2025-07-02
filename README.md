@@ -63,7 +63,7 @@ export function greet(name) {
 ## 🛠 Supported file types
 
 -   `.js`, `.ts`, `.jsx`, `.tsx`
--   `.py`, `.sh`, `.rb`, `.go`, `.java`, `.kt`, `.c`, `.cpp`, `.h`, `.cs`, `.php`
+-   `.py`, `.sh`, `.rb`, `.go`, `.java`, `.kt`, `.c`, `.cpp`, `.h`, `.cs`, `.php`, `.dart`
 -   `.css`, `.scss`, `.less`
 -   `.html`, `.xml`
 -   `.yml`, `.yaml`
