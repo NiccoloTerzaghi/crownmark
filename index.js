@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 // index.js
-import { handleCliArgs } from "./lib/cli.js";
+
+import { handleCliArgs, loadUserConfig } from "./lib/cli.js";
 import { promises as fs } from "fs";
 import path from "path";
 
 const ROOT_DIR = process.cwd();
 
-// Call CLI args parser/handler. If it exits, the process ends here.
-await handleCliArgs();
+// Parse CLI arguments and handle --help or --init-config flags.
+await handleCliArgs(ROOT_DIR);
 
-// This object maps file extensions to the proper comment syntax
-// so the header is correctly formatted for each language.
+// Load user config (.crownmarkrc.json) if present.
+const USER_CONFIG = await loadUserConfig(ROOT_DIR);
+
+// Maps file extensions to comment syntax for each language.
 const COMMENT_STYLES = {
 	".js": (p) => `// ${p}`,
 	".ts": (p) => `// ${p}`,
@@ -38,7 +41,7 @@ const COMMENT_STYLES = {
 	".md": (p) => `<!-- ${p} -->`,
 };
 
-// These keywords indicate special comments that should always stay at the top.
+// List of keywords that indicate special comments that should stay at the top of a file.
 const SPECIAL_COMMENT_KEYWORDS = [
 	"@license",
 	"@preserve",
@@ -48,6 +51,28 @@ const SPECIAL_COMMENT_KEYWORDS = [
 	"tslint",
 	"jshint",
 ];
+
+// Returns true if the file extension is enabled for processing
+function isAllowedExtension(filePath) {
+	if (USER_CONFIG.extensions && USER_CONFIG.extensions.length) {
+		return USER_CONFIG.extensions.includes(
+			path.extname(filePath).toLowerCase()
+		);
+	}
+	return Object.keys(COMMENT_STYLES).includes(
+		path.extname(filePath).toLowerCase()
+	);
+}
+
+// Returns true if this directory should be ignored
+function isIgnoredDir(dirName) {
+	return (USER_CONFIG.ignoreDirs || []).includes(dirName);
+}
+
+// Returns true if this file should be ignored
+function isIgnoredFile(fileName) {
+	return (USER_CONFIG.ignoreFiles || []).includes(fileName);
+}
 
 // Builds the header comment string based on the file extension and its relative path.
 function getCommentForFile(filePath) {
@@ -121,14 +146,17 @@ async function addHeaderToFile(filePath) {
 	await fs.writeFile(filePath, newContent, "utf-8");
 }
 
-// Recursively processes all files in the directory tree.
+// Recursively processes all files in the directory tree, respecting user config for ignores/extensions
 async function walkDir(dir) {
 	const entries = await fs.readdir(dir, { withFileTypes: true });
 	for (const entry of entries) {
 		const fullPath = path.join(dir, entry.name);
 		if (entry.isDirectory()) {
+			if (isIgnoredDir(entry.name)) continue; // skip ignored dirs
 			await walkDir(fullPath);
 		} else if (entry.isFile()) {
+			if (!isAllowedExtension(fullPath)) continue; // skip unwanted extensions
+			if (isIgnoredFile(entry.name)) continue; // skip specific files
 			await addHeaderToFile(fullPath);
 		}
 	}

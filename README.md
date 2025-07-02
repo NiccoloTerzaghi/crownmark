@@ -1,5 +1,3 @@
-<!-- README.md -->
-
 # crownmark
 
 > CLI tool to automatically insert header comments showing the file path in your source files, supporting many programming languages.
@@ -8,9 +6,9 @@
 
 ## ✨ Features
 
-✅ Adds a clean header comment with the relative file path to each source file.  
-✅ Supports multiple programming languages (JavaScript, TypeScript, Python, Shell, C/C++, Java, HTML, CSS, YAML, Markdown, etc.).  
-✅ Preserves shebangs and important license or linter comments at the top of your files.  
+✅ Adds a clean header comment with the relative file path to each source file.
+✅ Supports multiple programming languages (JavaScript, TypeScript, Python, Shell, C/C++, Java, HTML, CSS, YAML, Markdown, etc.).
+✅ Preserves shebangs and important license or linter comments at the top of your files.
 ✅ Updates the header if the file moves, ensuring the path is always correct.
 
 ---
@@ -68,3 +66,38 @@ export function greet(name) {
 -   `.html`, `.xml`
 -   `.yml`, `.yaml`
 -   `.md`
+
+---
+
+## ⚙️ Custom configuration
+
+You can control which file extensions and folders are included or ignored by creating a `.crownmarkrc.json` in your project root.
+
+### Example config
+
+```json
+{
+	"extensions": [".js", ".ts", ".dart"],
+	"ignoreDirs": ["node_modules", ".git", "dist"],
+	"ignoreFiles": ["custom.ignore.js"]
+}
+```
+
+-   **extensions**: Only these file types will be processed (default: all supported extensions)
+-   **ignoreDirs**: Directories to skip (default: `["node_modules", ".git"]`)
+-   **ignoreFiles**: Individual files to skip
+
+You can auto-generate a default config file with:
+
+```bash
+crownmark --init-config
+```
+
+This creates a `.crownmarkrc.json` in your project root with all supported extensions and ignores the standard folders.
+
+---
+
+## 📝 Command line options
+
+-   `--help`, `-h`   Show help and usage
+-   `--init-config`   Create a default `.crownmarkrc.json` config file in your project root
