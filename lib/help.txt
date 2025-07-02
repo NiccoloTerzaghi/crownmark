@@ -1,0 +1,26 @@
+Usage: crownmark [--help|-h]
+
+Options:
+  --help, -h          Show this help message and exit.
+
+How it works:
+  - Recursively scans your project directory from the current location.
+  - Adds a header comment at the top of each supported source file,
+    showing the relative path from the project root.
+  - If a file already has the correct header, it is skipped.
+  - If a file has an outdated header (for example, after renaming or moving),
+    it is updated to reflect the correct path.
+
+Supported file types:
+  - JavaScript, TypeScript, JSX, TSX
+  - Python, Shell, Ruby, Go, Java, Kotlin, C, C++, C#, PHP
+  - CSS, SCSS, LESS
+  - HTML, XML, Markdown
+  - YAML (.yml, .yaml)
+
+Examples:
+  crownmark
+    Scans the project and adds or updates headers in place.
+
+Author:
+  Niccolò Terzaghi (https://github.com/NiccoloTerzaghi)

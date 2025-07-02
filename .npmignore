@@ -1,0 +1,26 @@
+# Ignore dependencies & dev files
+node_modules/
+package-lock.json
+
+# Ignore editor configs
+.vscode/
+.idea/
+*.swp
+
+# Ignore tests (add test/ if you have one)
+test/
+coverage/
+
+# Ignore logs
+*.log
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore envs
+.env
+.env.*
+
+# Ignore your local .git folder
+.git/

@@ -1,0 +1,29 @@
+{
+	"name": "crownmark",
+	"version": "1.0.0",
+	"description": "CLI tool to automatically insert header comments showing the file path in your source files, supporting many programming languages.",
+	"main": "index.js",
+	"bin": {
+		"crownmark": "./index.js"
+	},
+	"type": "module",
+	"keywords": [
+		"cli",
+		"header",
+		"comment",
+		"file path",
+		"banner",
+		"code",
+		"tool",
+		"crown",
+		"mark"
+	],
+	"author": "Niccolò Terzaghi <ni.terzaghi@gmail.com> (https://github.com/NiccoloTerzaghi)",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/NiccoloTerzaghi/crownmark"
+	},
+	"scripts": {
+		"headers": "node index.js"
+	}
+}
