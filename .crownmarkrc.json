@@ -1,0 +1,33 @@
+{
+  "extensions": [
+    ".js",
+    ".ts",
+    ".jsx",
+    ".tsx",
+    ".py",
+    ".sh",
+    ".rb",
+    ".go",
+    ".java",
+    ".kt",
+    ".c",
+    ".cpp",
+    ".h",
+    ".cs",
+    ".php",
+    ".dart",
+    ".css",
+    ".scss",
+    ".less",
+    ".html",
+    ".xml",
+    ".yml",
+    ".yaml",
+    ".md"
+  ],
+  "ignore": [
+    ".git/",
+    "dist/",
+    "lib/"
+  ]
+}

@@ -6,9 +6,9 @@ Options:
 
 How it works:
   - Recursively scans your project directory from the current location.
-  - Adds a header comment at the top of each supported source file,
-    showing the relative path from the project root.
-  - Honors the .crownmarkrc.json file for extension and ignore rules.
+  - Adds or updates a header comment at the top of each supported source file, showing its relative path from the project root.
+  - Skips files and folders using ignore patterns from .crownmarkrc.json ("ignore" uses .gitignore-style patterns).
+  - Always ignores common build, cache, environment, and version control folders (like node_modules, .git, dist, venv, etc.), even without a config file. See lib/default-ignore.js for the full list.
 
 Examples:
   crownmark
@@ -16,6 +16,18 @@ Examples:
 
   crownmark --init-config
     Creates a default config file in the current project root.
+
+Config example (.crownmarkrc.json):
+  {
+    "extensions": [".js", ".ts", ".dart"],
+    "ignore": [
+      "node_modules/",
+      ".git/",
+      "dist/",
+      "custom.ignore.js",
+      "!src/do-not-ignore.js"
+    ]
+  }
 
 Author:
   Niccolò Terzaghi (https://github.com/NiccoloTerzaghi)

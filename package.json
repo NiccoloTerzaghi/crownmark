@@ -23,7 +23,8 @@
 		"type": "git",
 		"url": "https://github.com/NiccoloTerzaghi/crownmark"
 	},
-	"scripts": {
-		"headers": "node index.js"
+	"license": "MIT",
+	"dependencies": {
+		"ignore": "^7.0.5"
 	}
 }

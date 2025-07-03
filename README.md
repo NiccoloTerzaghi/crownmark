@@ -1,4 +1,6 @@
+<!-- README.md -->
 # crownmark
+![MIT License](https://img.shields.io/badge/License-MIT-green.svg)
 
 > CLI tool to automatically insert header comments showing the file path in your source files, supporting many programming languages.
 
@@ -39,9 +41,10 @@ crownmark
 
 It will recursively scan your project folder and:
 
--   Insert a header like `// src/utils/myfile.js` at the top of each file (using the correct comment style).
--   Skip files that already have the correct header.
--   Update the header if the file was renamed or moved.
+* Insert a header like `// src/utils/myfile.js` at the top of each file (using the correct comment style).
+* Skip files that already have the correct header.
+* Update the header if the file was renamed or moved.
+* Honor your custom config for included extensions and ignore rules.
 
 ---
 
@@ -60,32 +63,36 @@ export function greet(name) {
 
 ## 🛠 Supported file types
 
--   `.js`, `.ts`, `.jsx`, `.tsx`
--   `.py`, `.sh`, `.rb`, `.go`, `.java`, `.kt`, `.c`, `.cpp`, `.h`, `.cs`, `.php`, `.dart`
--   `.css`, `.scss`, `.less`
--   `.html`, `.xml`
--   `.yml`, `.yaml`
--   `.md`
+* `.js`, `.ts`, `.jsx`, `.tsx`
+* `.py`, `.sh`, `.rb`, `.go`, `.java`, `.kt`, `.c`, `.cpp`, `.h`, `.cs`, `.php`, `.dart`
+* `.css`, `.scss`, `.less`
+* `.html`, `.xml`
+* `.yml`, `.yaml`
+* `.md`
 
 ---
 
 ## ⚙️ Custom configuration
 
-You can control which file extensions and folders are included or ignored by creating a `.crownmarkrc.json` in your project root.
+You can control which file extensions and folders/files are included or ignored by creating a `.crownmarkrc.json` in your project root.
 
 ### Example config
 
 ```json
 {
 	"extensions": [".js", ".ts", ".dart"],
-	"ignoreDirs": ["node_modules", ".git", "dist"],
-	"ignoreFiles": ["custom.ignore.js"]
+	"ignore": [
+		"node_modules/",
+		".git/",
+		"dist/",
+		"custom.ignore.js",
+		"!src/do-not-ignore.js"
+	]
 }
 ```
 
--   **extensions**: Only these file types will be processed (default: all supported extensions)
--   **ignoreDirs**: Directories to skip (default: `["node_modules", ".git"]`)
--   **ignoreFiles**: Individual files to skip
+* **extensions**: Only these file types will be processed (default: all supported extensions)
+* **ignore**: Array of ignore rules using [`.gitignore`-style patterns](https://git-scm.com/docs/gitignore). Ignored files or folders will be skipped.
 
 You can auto-generate a default config file with:
 
@@ -93,11 +100,37 @@ You can auto-generate a default config file with:
 crownmark --init-config
 ```
 
-This creates a `.crownmarkrc.json` in your project root with all supported extensions and ignores the standard folders.
+This creates a `.crownmarkrc.json` in your project root with all supported extensions and standard ignore rules.
 
 ---
 
 ## 📝 Command line options
 
--   `--help`, `-h`   Show help and usage
--   `--init-config`   Create a default `.crownmarkrc.json` config file in your project root
+* `--help`, `-h`   Show help and usage
+* `--init-config`   Create a default `.crownmarkrc.json` config file in your project root
+
+---
+
+## 📁 Default ignored folders and files
+
+By default, crownmark will always skip common build, cache, environment, and version control folders (such as `node_modules`, `.git`, `dist`, `venv`, etc.), even if you don't provide a `.crownmarkrc.json`.
+
+You can find the full list of default ignored patterns in [`lib/default-ignore.js`](./lib/default-ignore.js) in the source code.
+
+If you want to override or extend these, simply use the `"ignore"` array in your config file.
+
+---
+
+## 🙋 FAQ
+
+**How are ignored files/folders handled?**
+The `ignore` array in your config uses the same syntax as `.gitignore`, so you can use wildcards, negation (`!`), and directory/file matching.
+
+**Does it change license or linter comments?**
+No, any special comments (license, linter, preserve, etc.) are left at the top, before the header.
+
+---
+
+## 👤 Author
+
+Niccolò Terzaghi ([github.com/NiccoloTerzaghi](https://github.com/NiccoloTerzaghi))
