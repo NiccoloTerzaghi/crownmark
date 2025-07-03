@@ -1,6 +1,7 @@
 <!-- README.md -->
 # crownmark
 ![MIT License](https://img.shields.io/badge/License-MIT-green.svg)
+![npm](https://img.shields.io/npm/v/crownmark)
 
 > CLI tool to automatically insert header comments showing the file path in your source files, supporting many programming languages.
 
